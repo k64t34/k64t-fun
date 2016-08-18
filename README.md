@@ -1,5 +1,6 @@
 # k64t-fun
+##Features
+###Feature 1. Bomber gets a bonus equipment: grenades, armor
 
-1. When player has no enight money, plugin give to him rundomuze items.
-2. When player burn from HE, slap player
-3. 
+##Changelog
+* 0.6  1st release in github
