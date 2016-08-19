@@ -7,6 +7,15 @@ Some my funs for Counter-Strike Source
 
 ##Plans
 - [ ] Unknown sponsor
+- [ ] Бомба взрывается при попадании в бомбера с вероятностью
+- [ ] Если игрок заработал 16000, всем дарит броники
+- [ ] Падает оружие при попадании в правую руку
+- [ ] При ранении следы крови
+- [ ] При ранении в голову красное затемнение
+- [ ] При ранении ноги - уменьшение скорости бега
+- [ ] При попадании в броню -  отдача
+- [ ] При взрывае гранаты - взрывная волна
+
 
 A player in a difficult financial situation gets sponsorship. If a player has less money than mp_startmoney, the sponsor randomly give the player a different equipment  or grenades.
 
