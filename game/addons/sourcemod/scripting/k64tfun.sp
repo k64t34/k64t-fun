@@ -1,5 +1,4 @@
 /*
-Feature 1. Bomber gets a bonus equipment: grenades, armor
 1 Бомба взрывается при попадании в бомбера с вероятностью
 2 Если игрок заработал 16000, всем дарит броники
 3 Падает оружие при попадании в правую руку
@@ -7,6 +6,11 @@ Feature 1. Bomber gets a bonus equipment: grenades, armor
 5 При ранении в голову красное затемнение
 6 Бомбер получает обмундирование, грены
 */
+//Feature 1. Bomber gets a bonus equipment: grenades, armor
+#define Feature_1 1
+//Feature 2. Knife kill sound
+#define Feature_2 1
+
 #define nDEBUG 1
 #define PLUGIN_NAME  "k64t-fun"
 #define PLUGIN_VERSION "0.4"
@@ -16,14 +20,12 @@ Feature 1. Bomber gets a bonus equipment: grenades, armor
 #include <k64t>
 
 #include <sdkhooks>
+#if defined Feature_2 //Knife kill sound
 #define SOUND_FOLDER "k64t"
 #define DOWNLOAD_SOUND_FOLDER "sound/k64t"
 #define knife_kill_sound    "kaban4eg.mp3"
 #define knife_tm_kill_sound "knife_tm_kill_sound.mp3"
-
-#define Feature_1 1//Bomber gets a bonus equipment: grenades, armor
-
-
+#endif
 int g_iAccount = -1; 
 //********************************************************12*********************
 public Plugin myinfo = {
@@ -55,6 +57,7 @@ int g_iFlashDuration = -1;
 //*****************************************************************************
 public void OnMapStart(){
 //*****************************************************************************
+#if defined Feature_2 //Knife kill sound
 PrecacheSound(fknife_kill_sound, true);	
 PrecacheSound(fknife_tm_kill_sound, true);	
 char buffer[PLATFORM_MAX_PATH];
@@ -62,7 +65,7 @@ Format(buffer, PLATFORM_MAX_PATH, "%s/%s\0",DOWNLOAD_SOUND_FOLDER,knife_kill_sou
 AddFileToDownloadsTable(buffer);
 Format(buffer, PLATFORM_MAX_PATH, "%s/%s\0",DOWNLOAD_SOUND_FOLDER,knife_tm_kill_sound);	
 AddFileToDownloadsTable(buffer);
-
+#endif
 }
 //*****************************************************************************
 public void OnPluginStart(){	
@@ -83,8 +86,10 @@ cvar_mp_startmoney = FindConVar("mp_startmoney");
 if ( cvar_mp_startmoney != INVALID_HANDLE )
 	g_mp_startmoney	=GetConVarInt(cvar_mp_startmoney);
 g_iFlashDuration = FindSendPropOffs("CCSPlayer", "m_flFlashDuration");
+#if defined Feature_2 //Knife kill sound
 Format(fknife_tm_kill_sound, PLATFORM_MAX_PATH, "%s\\%s",SOUND_FOLDER,knife_tm_kill_sound);	
 Format(fknife_kill_sound,    PLATFORM_MAX_PATH, "%s\\%s",SOUND_FOLDER,knife_kill_sound);	
+#endif
 }
 //***********************************************
 public void  EventRoundStart(Handle event, const char[] name ,bool dontBroadcast){
@@ -522,6 +527,7 @@ GetEventString(event, "weapon", weapon, sizeof(weapon));
 DebugPrint("%s",weapon);
 #endif 
 
+#if defined Feature_2 //Knife kill sound
 if (StrEqual("knife",weapon))	
 	{	
 	int iv,ia;//,vt,at;
@@ -544,9 +550,8 @@ if (StrEqual("knife",weapon))
 		EmitSoundToAll(fknife_kill_sound);
 		}
 	}
+#endif 	
 }	
 	
 #endinput
 //*****************************************************************************
-
-
